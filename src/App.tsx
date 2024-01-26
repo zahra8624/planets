@@ -1,5 +1,5 @@
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { PlanetList, DropZone } from "./components";
+import { PlanetList, DropZone, AcceptButton } from "./components";
 import { usePlanetStore } from "./hooks";
 import { PlanetType } from "./types";
 
@@ -19,7 +19,7 @@ function App() {
   };
   return (
     <DndContext onDragEnd={onDragEnd}>
-      <main className="flex w-full items-center pt-5 px-5">
+      <main className="flex w-full items-center pt-5 px-5 h-[100vh]">
         <section className="flex-1">
           <PlanetList />
         </section>
@@ -28,6 +28,7 @@ function App() {
             return <DropZone key={indx + 1} order={indx + 1} />;
           })}
         </section>
+        <AcceptButton />
       </main>
     </DndContext>
   );

@@ -9,8 +9,10 @@ interface DropZoneProps {
 export function DropZone(props: DropZoneProps) {
   const { order } = props;
   const placedPlanet = usePlanetStore((state) => {
-    console.log(state.arrangedItems);
     return state.arrangedItems[order];
+  });
+  const removeArrangement = usePlanetStore((state) => {
+    return state.removeArrangement;
   });
 
   const { isOver, setNodeRef } = useDroppable({
@@ -22,6 +24,7 @@ export function DropZone(props: DropZoneProps) {
 
   return (
     <div
+      onClick={() => removeArrangement(order)}
       ref={setNodeRef}
       style={{ zIndex: order }}
       className={cls(
