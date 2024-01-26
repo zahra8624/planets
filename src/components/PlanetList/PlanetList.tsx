@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { PLANET_LIST } from "../../constants";
 import { usePlanetStore } from "../../hooks";
 import Planet from "../Planet/Planet";
+import { shuffle } from "../../utils";
 
 export function PlanetList() {
   const arrangedItems = usePlanetStore((state) => state.arrangedItems);
@@ -15,16 +17,20 @@ export function PlanetList() {
     }, false);
   };
 
+  const shuffledPlanets = useMemo(() => {
+    return shuffle(PLANET_LIST);
+  }, []);
+
   return (
-    <>
-      {PLANET_LIST.map((item) => {
+    <div className="flex flex-wrap items-center w-full">
+      {shuffledPlanets.map((item) => {
         if (isPlanetFound(item.order)) return null;
         return (
-          <div key={item.name} className="mb-5">
+          <div key={item.name} className="p-2.5">
             <Planet planet={item} />
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
