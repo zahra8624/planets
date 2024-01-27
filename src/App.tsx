@@ -29,12 +29,12 @@ function App() {
         <section className="flex-1">
           <PlanetList />
         </section>
-        <section className="flex-[3] flex space-x-1">
+        <section className="items-center justify-center relative flex-[3] flex space-x-1">
           {[...new Array(9)].map((_, indx) => {
             return <DropZone key={indx + 1} order={indx + 1} status={status} />;
           })}
         </section>
-        <AcceptButton onAccept={onAccept} />
+        <AcceptButton  onAccept={onAccept} />
       </main>
     </DndContext>
   );

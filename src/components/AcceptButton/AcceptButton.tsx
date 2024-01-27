@@ -17,7 +17,11 @@ export const AcceptButton = ({ onAccept }: Props) => {
     onAccept(isOk);
   };
   return (
-    <button className="flex-1 bg-gray-300 rounded-md h-10" type="button" onClick={checkPlanetArrangements}>
+    <button
+      className="fixed top-4 left-4  px-5  bg-gray-300 rounded-md py-2.5"
+      type="button"
+      onClick={checkPlanetArrangements}
+    >
       Accept
     </button>
   );

@@ -23,26 +23,49 @@ export function DropZone(props: DropZoneProps) {
       order,
     },
   });
+  const dimension = order * 100;
+
+  const setPlanets = () => {
+    switch (order - 1) {
+      case 0:
+        return { inset: "30%" };
+      case 1:
+      case 2:
+        return { left: "8%", top: "8%" };
+
+      case 3:
+        return { left: "10%", top: "10%" };
+
+      default:
+        return { left: "12%", top: "12%" };
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center">
-      <div
-        onClick={() => removeArrangement(order)}
-        ref={setNodeRef}
-        style={{ zIndex: order }}
-        className={cls(
-          "w-20 h-20 rounded-lg transition-transform border-dashed border flex justify-center items-center",
-          {
-            "border-gray-400 scale-100": !isOver,
-            "border-gray-600 scale-105": isOver,
-            "bg-green-200": status === "correct",
-            "bg-red-200": status === "wrong",
-          }
-        )}
-      >
-        {placedPlanet && <Planet planet={placedPlanet} hideName />}
-      </div>
-      <h4>{order}</h4>
+    <div
+      onClick={() => removeArrangement(order)}
+      ref={setNodeRef}
+      style={{ zIndex: 9 - order, width: dimension, height: dimension }}
+      className={cls(
+        `absolute rounded-full transition-transform border-dashed border flex justify-center items-center`,
+        {
+          "border-gray-400 scale-100": !isOver,
+          "border-gray-600 scale-105": isOver,
+          "bg-green-200": status === "correct",
+          "bg-red-200": status === "wrong",
+        }
+      )}
+    >
+      {placedPlanet && (
+        <div
+          style={{ animationDelay: `${order * 50}ms` }}
+          className="relative w-full h-full rounded-full animate-gogoli"
+        >
+          <div style={{ ...setPlanets() }} className="absolute">
+            <Planet planet={placedPlanet} hideName />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
