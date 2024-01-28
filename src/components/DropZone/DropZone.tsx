@@ -1,8 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import cls from "classnames";
-import { usePlanetStore } from "../../hooks";
 import Planet from "../Planet/Planet";
-
+import { useDropZoneLogic } from "./useDropZoneLogic";
 interface DropZoneProps {
   order: number;
   status?: "wrong" | "correct";
@@ -10,12 +9,8 @@ interface DropZoneProps {
 
 export function DropZone(props: DropZoneProps) {
   const { order, status } = props;
-  const placedPlanet = usePlanetStore((state) => {
-    return state.arrangedItems[order - 1];
-  });
-  const removeArrangement = usePlanetStore((state) => {
-    return state.removeArrangement;
-  });
+  const { setPlanets, placedPlanet, removeArrangement } =
+    useDropZoneLogic(order);
 
   const { isOver, setNodeRef } = useDroppable({
     id: `droppable ${order}`,
@@ -24,22 +19,6 @@ export function DropZone(props: DropZoneProps) {
     },
   });
   const dimension = order * 100;
-
-  const setPlanets = () => {
-    switch (order - 1) {
-      case 0:
-        return { inset: "30%" };
-      case 1:
-      case 2:
-        return { left: "8%", top: "8%" };
-
-      case 3:
-        return { left: "10%", top: "10%" };
-
-      default:
-        return { left: "12%", top: "12%" };
-    }
-  };
 
   return (
     <div

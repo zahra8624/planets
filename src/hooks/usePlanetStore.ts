@@ -5,6 +5,7 @@ interface PlanetStore {
   arrangedItems: Array<PlanetType | null>;
   appendArrangement: (dropOrder: number, planet: PlanetType) => void;
   removeArrangement: (dropOrder: number) => void;
+  resetPlanet: () => void;
 }
 
 export const usePlanetStore = create<PlanetStore>((set) => ({
@@ -28,4 +29,12 @@ export const usePlanetStore = create<PlanetStore>((set) => ({
         o === order ? null : p
       ),
     })),
+
+    resetPlanet : () => {
+      set((state) => ({
+        ...state,
+        arrangedItems: state.arrangedItems.map(()=> null)
+      }))
+
+    }
 }));

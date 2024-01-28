@@ -22,7 +22,7 @@ export const AcceptButton = ({ onAccept }: Props) => {
       type="button"
       onClick={checkPlanetArrangements}
     >
-      Accept
+      Start
     </button>
   );
 };

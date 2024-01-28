@@ -3,10 +3,12 @@ import { PlanetList, DropZone, AcceptButton } from "./components";
 import { usePlanetStore } from "./hooks";
 import { PlanetType } from "./types";
 import { useState } from "react";
+import ResetButton from "./components/ResetButton/ResetButton";
 
 function App() {
   const [status, setStatus] = useState<"wrong" | "correct">();
   const appendArrangement = usePlanetStore((state) => state.appendArrangement);
+  
   const onDragEnd = (e: DragEndEvent) => {
     if (e.collisions && e.active) {
       const target = e.collisions[0];
@@ -34,7 +36,8 @@ function App() {
             return <DropZone key={indx + 1} order={indx + 1} status={status} />;
           })}
         </section>
-        <AcceptButton  onAccept={onAccept} />
+        <AcceptButton onAccept={onAccept} />
+        <ResetButton />
       </main>
     </DndContext>
   );
